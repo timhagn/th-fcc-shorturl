@@ -2,14 +2,14 @@
 	"name": "shorturl",
 	"version": "0.0.1",
 	"description": "API project for freeCodeCamp",
-    "author": "Tim Hagn",
+	"author": "Tim Hagn",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js"
 	},
 	"dependencies": {
-		"cors": "^2.8.1",
 		"body-parser": "^1.15.2",
+		"cors": "^2.8.1",
 		"dotenv": "^6.0.0",
 		"express": "^4.12.4",
 		"mongodb": "^3.1.6",

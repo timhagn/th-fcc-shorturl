@@ -8,6 +8,7 @@ const Schema = mongoose.Schema;
 const autoIncrement = require('@nakanokurenai/mongoose-auto-increment');
 
 const dns = require('dns');
+const { URL } = require('url');
 const cors = require('cors');
 const validUrl = require('valid-url');
 
@@ -18,9 +19,9 @@ const port = process.env.PORT || 3000;
 
 /** this project needs a db !! **/
 let connection = mongoose.createConnection(
-      process.env.MONGO_URI,
-      { useNewUrlParser: true }
-    );
+    process.env.MONGO_URI,
+    { useNewUrlParser: true }
+);
 autoIncrement.initialize(connection);
 
 const ShortUrlSchema = new Schema({
@@ -60,18 +61,17 @@ app.post('/api/shorturl/new',(req, res) => {
 
   if (req.body.url && validUrl.isWebUri(req.body.url) && req.hostname) {
     const urlToShorten = req.body.url;
-    const options = {
-      family: 6,
-      hints: dns.ADDRCONFIG | dns.V4MAPPED,
-    };
-    dns.lookup(req.hostname, options, (dnsError) => {
+    const urlParsed = new URL(urlToShorten).hostname.replace('www.','');
+
+    dns.lookup(urlParsed, (dnsError) => {
       if (dnsError) {
+        console.log(dnsError, req.body.url);
         res.json(errorObj);
       }
       else {
         const urlToSave = new ShortUrl({originalUrl: urlToShorten});
         urlToSave.save((err, data) => {
-          err ? res.json(errorObj) :
+          err ? res.json({error: 'save failure'}) :
               res.json({
                 "original_url": data.originalUrl,
                 "short_url": data._id

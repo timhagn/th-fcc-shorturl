@@ -14,7 +14,7 @@ POST https://th-fcc-su.glitch.me/api/shorturl/new - body (urlencoded) :  url=htt
 
 #### Usage:
 
-https://th-fcc-su.glitch.me/api/shorturl/3
+https://th-fcc-su.glitch.me/api/shorturl/1
 
 #### Will redirect to:
 

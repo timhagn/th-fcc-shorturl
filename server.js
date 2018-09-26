@@ -27,8 +27,8 @@ autoIncrement.initialize(connection);
 const ShortUrlSchema = new Schema({
   originalUrl: { type: String, required: true },
 });
-ShortUrlSchema.plugin(autoIncrement.plugin, 'ShortUrlTest');
-const ShortUrl = connection.model('ShortUrlTest', ShortUrlSchema);
+ShortUrlSchema.plugin(autoIncrement.plugin, 'ShortUrl');
+const ShortUrl = connection.model('ShortUrl', ShortUrlSchema);
 
 app.use(cors());
 

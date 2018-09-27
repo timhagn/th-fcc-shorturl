@@ -17,7 +17,7 @@ const app = express();
 // Basic Configuration 
 const port = process.env.PORT || 3000;
 
-/** this project needs a db !! **/
+// Create DB connection.
 let connection = mongoose.createConnection(
     process.env.MONGO_URI,
     { useNewUrlParser: true }
@@ -32,8 +32,7 @@ const ShortUrl = connection.model('ShortUrl', ShortUrlSchema);
 
 app.use(cors());
 
-/** this project needs to parse POST bodies **/
-// you should mount the body-parser here
+// Mount body-parser.
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Logger Middleware to test input.
@@ -83,6 +82,7 @@ app.post('/api/shorturl/new',(req, res) => {
     res.json(errorObj);
   }
 });
+
 // URL-Shortener Create redirect to short url.
 app.get("/api/shorturl/:urlid", (req, res) => {
   if (Number(req.params.urlid)) {

@@ -19,7 +19,7 @@ const port = process.env.PORT || 3000;
 
 // Create DB connection.
 let connection = mongoose.createConnection(
-    process.env.MONGO_URI,
+    process.env.MONGO_URI || process.env.MONGO_LOCAL,
     { useNewUrlParser: true }
 );
 autoIncrement.initialize(connection);
